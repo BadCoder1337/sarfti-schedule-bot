@@ -1,0 +1,32 @@
+{
+    "env": {
+        "node": true,
+        "es2020": true
+    },
+    "extends": [
+		"eslint:recommended",
+		"plugin:promise/recommended",
+		"plugin:@typescript-eslint/eslint-recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:@typescript-eslint/recommended-requiring-type-checking"
+	],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"project": "tsconfig.json",
+		"tsconfigRootDir": "."
+	},
+	"plugins": [
+		"@typescript-eslint"
+	],
+	"rules": {
+		"quotes": ["error", "single"],
+		"no-trailing-spaces": "error",
+		"radix": "off",
+		"newline-before-return": "warn",
+		"no-console": "off",
+		"arrow-parens": ["error", "as-needed"],
+		"sort-keys": "error",
+		"sort-imports": "error",
+		"semi": ["error", "always"]
+	}
+}
