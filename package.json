@@ -1,0 +1,15 @@
+{
+    "name": "sarfti-schedule-bot",
+    "version": "0.0.1",
+    "description": "Sarfti VKontakte schedule bot",
+    "main": "build/index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc -p .",
+        "dev": "tsc-watch --onSuccess \"yarn start:dev\"",
+        "start": "node ./build/index.js",
+        "start:dev": "node --inspect ./build/index.js"
+    },
+    "author": "https://github.com/BadCoder1337",
+    "license": "ISC"
+}

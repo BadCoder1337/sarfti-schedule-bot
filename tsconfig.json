@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "target": "ES2020",
+      "noImplicitAny": false,
+      "experimentalDecorators": true,
+      "sourceMap": true,
+      "allowJs": false,
+      "declaration": true,
+      "moduleResolution": "node",
+      "emitDecoratorMetadata": true,
+      "removeComments": true,
+      "rootDir": "src",
+      "outDir": "build"
+    }
+  }
