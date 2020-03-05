@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+      "module": "CommonJS",
       "target": "ES2020",
       "noImplicitAny": false,
       "experimentalDecorators": true,
@@ -9,6 +10,7 @@
       "moduleResolution": "node",
       "emitDecoratorMetadata": true,
       "removeComments": true,
+      "skipLibCheck": true,
       "rootDir": "src",
       "outDir": "build"
     }

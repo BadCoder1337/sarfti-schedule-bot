@@ -13,6 +13,8 @@
     "author": "https://github.com/BadCoder1337",
     "license": "ISC",
     "dependencies": {
+        "dotenv": "^8.2.0",
+        "node-fetch": "^2.6.0",
         "pg": "^7.18.2",
         "reflect-metadata": "^0.1.13",
         "sequelize": "^5.21.5",

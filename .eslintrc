@@ -27,6 +27,8 @@
 		"arrow-parens": ["error", "as-needed"],
 		"sort-keys": "error",
 		"sort-imports": "error",
-		"semi": ["error", "always"]
+		"semi": ["error", "always"],
+		"@typescript-eslint/camelcase": "off",
+		"@typescript-eslint/explicit-function-return-type": "off"
 	}
 }
