@@ -1,9 +1,9 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 
+import Parser from './parser';
 import db from './db';
 import { start } from './bot';
-import Parser from './parser';
 
 // async function main() {
 // 	await db(process.env.DB);
