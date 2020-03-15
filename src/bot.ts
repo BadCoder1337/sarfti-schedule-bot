@@ -117,6 +117,4 @@ hearCommand('purr', async (context: { send: (arg0: string) => any; sendAudioMess
 });
 
 
-export function start() {
-    return vk.updates.start();
-}
+export default vk;
