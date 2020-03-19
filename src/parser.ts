@@ -24,7 +24,7 @@ export default class Parser {
     }
 
     public getLessons() {
-        if (this.isEmpty) { return null; }
+        if (this.isEmpty()) { return null; }
 
         const groups = this.getGroups();
         const rows = [...this.parsedData.querySelectorAll('table.edit > tbody > tr')].slice(1);
@@ -48,7 +48,8 @@ export default class Parser {
                     })
                 )
         )
-        .flat();
+        .flat()
+        .filter(Boolean);
     }
 
     public getWeeks() {
@@ -61,21 +62,20 @@ export default class Parser {
     }
 
     public getCurrentWeek() {
+        const query = this.parsedData.querySelector('option[selected]');
+
         return this.isAuth()
         ? null
-        : new UtilDate(
-            this.parsedData
-                .querySelector('option[selected]')
-                .textContent
+        : UtilDate.fromWeekString(
+            query && query.textContent
         );
     }
 
     public isEmpty() {
+        const query = this.parsedData.querySelector('p.errorMessage');
+
         return this.isAuth()
-            || this
-                .parsedData
-                .querySelector('p.errorMessage')
-                .textContent === 'Данные на странице устарели. Откройте страницу заново.';
+            || (query && query.textContent === 'Данные на странице устарели. Откройте страницу заново.');
     }
 
     public isAuth() {
