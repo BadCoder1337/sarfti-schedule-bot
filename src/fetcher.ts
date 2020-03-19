@@ -74,7 +74,7 @@ export default class Fetcher {
         } else {
             await this.initSession();
 
-            return this.getSchedule();
+            return this.getSchedule(week);
         }
     }
 
