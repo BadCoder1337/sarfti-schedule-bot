@@ -14,6 +14,12 @@ export class UtilDate extends Date {
         );
     }
 
+    static fromWeekString(week: string) {
+        const date = new Date(week);
+
+        return new UtilDate(date.valueOf() + date.getTimezoneOffset() * 60 * 1000);
+    }
+
     public getWeekString() {
         const date = UtilDate.toMonday(this);
 
