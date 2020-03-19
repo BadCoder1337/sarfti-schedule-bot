@@ -10,5 +10,5 @@ export enum LESSON_TYPE {
 }
 
 export enum DAY_OF_WEEK {
-    'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СУБ'
+    'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СУБ', 'ВС'
 }
