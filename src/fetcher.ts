@@ -8,14 +8,24 @@ export default class Fetcher {
         return raw.map(entry => entry.split(';')[0]).join(';');
     }
 
-    static post(url: string, body?: [string, unknown][]) {
+    public get(url: string) {
+        return fetch(url, { method: 'GET' });
+    }
+
+    public post(url: string, body?: [string, unknown][]) {
         const form = new FormData();
 
         body.forEach(b => form.append(...b));
 
         return fetch(
             url,
-            { body: form, method: 'POST' }
+            {
+                body: form,
+                headers: {
+                    cookie: this.cookies
+                },
+                method: 'POST',
+            }
         );
     }
 
@@ -26,26 +36,31 @@ export default class Fetcher {
     private async initSession() {
         if (this.cookies) { return; }
 
-        const res = await Fetcher.post('http://scs.sarfti.ru/login/index', [
+        const resGet = await this.get('http://scs.sarfti.ru');
+        this.cookies = Fetcher.parseCookies(resGet);
+
+        const resPost = await this.post('http://scs.sarfti.ru/login/index', [
             ['login', ''],
             ['password', ''],
             ['guest', 'Войти как Гость']
         ]);
 
-        this.cookies = Fetcher.parseCookies(res);
+        const text = await resPost.text();
+
     }
 
     private async fetchWeeks() {
-        const res = await Fetcher.post('http://scs.sarfti.ru/date/printT', [
+        const res = await this.post('http://scs.sarfti.ru/date/printT', [
             ['id', 1],
             ['show', 'Распечатать']
         ]);
+        const text = await res.text();
 
-        return res.text();
+        return text;
     }
 
     private async fetchSchedule(week: number) {
-        const res = await Fetcher.post('http://scs.sarfti.ru/date/printT', [
+        const res = await this.post('http://scs.sarfti.ru/date/printT', [
             ['id', week],
             ['show', 'Распечатать']
         ]);
