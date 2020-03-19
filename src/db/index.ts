@@ -1,14 +1,16 @@
 import Lesson from './Lesson';
 import Person from './Person';
 import { Sequelize } from 'sequelize-typescript';
+import Week from './Week';
 
 export default async (url: string, logging = false) => {
     const DB = new Sequelize(url, { logging });
     await DB.authenticate();
-    DB.addModels([Person, Lesson]);
+    DB.addModels([Person, Lesson, Week]);
     await DB.sync();
 
     return DB;
 };
 
-export { Lesson, Person };
+export { Lesson, Person, Week };
+export { Op } from 'sequelize';
