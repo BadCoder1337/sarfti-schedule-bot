@@ -2,6 +2,7 @@ import { DAY_OF_WEEK } from './types';
 import { IncorrectHTMLError } from './errors';
 import { JSDOM } from 'jsdom';
 import { Lesson } from './db';
+import { UtilDate } from './utils';
 
 export default class Parser {
     constructor(private rawData: string) {
@@ -17,13 +18,17 @@ export default class Parser {
     public parsedData: Document;
 
     public getGroups() {
-        return [...this.parsedData.querySelectorAll('table.edit > tbody > tr > th')].slice(2).map(th => th.textContent);
+        return this.isEmpty()
+            ? null
+            : [...this.parsedData.querySelectorAll('table.edit > tbody > tr > th')].slice(2).map(th => th.textContent);
     }
 
     public getLessons() {
+        if (this.isEmpty) { return null; }
+
         const groups = this.getGroups();
         const rows = [...this.parsedData.querySelectorAll('table.edit > tbody > tr')].slice(1);
-        const week = this.getWeek();
+        const week = this.getCurrentWeek();
 
         return rows.map(r =>
             [...r.childNodes]
@@ -31,7 +36,7 @@ export default class Parser {
                 .map((cell, i) =>
                     cell.childNodes.length
                     && new Lesson({
-                        date: new Date().setDate(week.getDate() + parseInt(DAY_OF_WEEK[r.childNodes[0].textContent])),
+                        date: new Date(week.valueOf() + 24 * 3600 * 1000 * parseInt(DAY_OF_WEEK[r.childNodes[0].textContent])),
 
                         group: groups[i],
 
@@ -46,11 +51,34 @@ export default class Parser {
         .flat();
     }
 
-    public getWeek() {
-        return new Date(
+    public getWeeks() {
+        return this.isAuth()
+        ? null
+        : new Map(
+            [...this.parsedData.querySelectorAll('option')]
+                .map(o => [o.textContent, parseInt(o.value)])
+        );
+    }
+
+    public getCurrentWeek() {
+        return this.isAuth()
+        ? null
+        : new UtilDate(
             this.parsedData
                 .querySelector('option[selected]')
                 .textContent
         );
+    }
+
+    public isEmpty() {
+        return this.isAuth()
+            || this
+                .parsedData
+                .querySelector('p.errorMessage')
+                .textContent === 'Данные на странице устарели. Откройте страницу заново.';
+    }
+
+    public isAuth() {
+        return this.parsedData.querySelector('title').textContent === 'Авторизация SCS';
     }
 }
