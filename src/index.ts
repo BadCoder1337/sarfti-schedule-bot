@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-import { Util, UtilDate } from './utils';
+import { DiffUtil, UtilDate } from './utils';
 import db, { Lesson, Op, Week } from './db';
 import Fetcher from './fetcher';
 import Parser from './parser';
@@ -55,8 +55,8 @@ class App {
             }
         }});
 
-        // Util.compareScheduleTables(newSchedule, savedSchedule);
-        console.log(newSchedule.filter(s => s.group === 'ВТ-19'));
+        DiffUtil.compareScheduleTables(newSchedule, savedSchedule);
+        // console.log(newSchedule.filter(s => s.group === 'ВТ-19'));
     }
 
     public async refreshWeeks() {

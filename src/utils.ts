@@ -34,8 +34,29 @@ export class UtilDate extends Date {
     }
 }
 
-export class Util {
+export class DiffUtil {
     static compareScheduleTables(newTable: Lesson[], oldTable: Lesson[]) {
         console.log(newTable, oldTable);
+
+        const NTDaysSet = new Set(newTable.map(nt => nt.date.valueOf()));
+        const OTDaysSet = new Set(oldTable.map(ot => ot.date.valueOf()));
+
+        const NTMap = new Map([...NTDaysSet.values()].map(date => [date, newTable.filter(nt => nt.date.valueOf() === date)]));
+        const OTMap = new Map([...OTDaysSet.values()].map(date => [date, oldTable.filter(ot => ot.date.valueOf() === date)]));
+
+        const newLessons = new Map([...NTMap.entries()].filter(ent => OTMap.get(ent[0]).));
+        const cancelledLessons = [];
+    }
+
+    static compareDays(newDay: Lesson[], oldDay: Lesson[]) {
+
+    }
+
+    static isSameLessons(one: Lesson, two: Lesson) {
+        return one && two
+            && one.date.valueOf() === two.date.valueOf()
+            && one.group === two.group
+            && one.name === two.name
+            && one.type === two.type
     }
 }
