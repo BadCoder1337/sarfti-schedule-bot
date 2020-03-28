@@ -41,7 +41,7 @@ export default class Parser {
                         group: groups[i],
 
                         name: cell.childNodes[0].textContent,
-                        positon: r.childNodes[1].textContent,
+                        position: parseInt(r.childNodes[1].textContent),
                         room: cell.childNodes[6].textContent,
                         teacher: cell.childNodes[2].textContent,
                         type: cell.childNodes[4].textContent,
